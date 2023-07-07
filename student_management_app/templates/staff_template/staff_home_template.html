@@ -1,7 +1,7 @@
 {% extends 'staff_template/base_template.html' %}
 
 {% block page_title %}
-    Staff Home
+    
 {% endblock page_title %}
 
 {% block main_content %}
@@ -19,12 +19,12 @@
                     <div class="inner">
                         <h3>{{ students_count }}</h3>
 
-                        <p>Students Under Me</p>
+                        <p>Mes Etudiants </p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="{% url 'staff_take_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'staff_take_attendance' %}" class="small-box-footer">Plus d'info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -34,12 +34,12 @@
                     <div class="inner">
                         <h3>{{ attendance_count }}</h3>
 
-                        <p>Total Attendance Taken</p>
+                        <p>Totale d'absence prise</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="{% url 'staff_take_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'staff_take_attendance' %}" class="small-box-footer">Plus d'info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -49,12 +49,12 @@
                     <div class="inner">
                         <h3>{{ leave_count }}</h3>
 
-                        <p>Total Leave Taken</p>
+                        <p>Totale nombre des congés demandé</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="{% url 'staff_apply_leave' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'staff_apply_leave' %}" class="small-box-footer">Plus d'info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -64,12 +64,12 @@
                     <div class="inner">
                         <h3>{{ subject_count }}</h3>
 
-                        <p>Total Subjects</p>
+                        <p>Totale des matières</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">Plus d'info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -81,7 +81,7 @@
                     <!-- PIE CHART -->
                     <div class="card card-danger">
                     <div class="card-header">
-                        <h3 class="card-title">Leave Status Chart</h3>
+                        <h3 class="card-title">Graphe d'etat de congé</h3>
 
                         <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -101,7 +101,7 @@
                     <!-- BAR CHART -->
                     <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Subjects Attend Chart</h3>
+                        <h3 class="card-title">Tableau des sujets présents</h3>
 
                         <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -125,7 +125,7 @@
                     <!-- BAR CHART -->
                     <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Student Attendance Data</h3>
+                        <h3 class="card-title">Données sur l'assiduité des étudiants</h3>
 
                         <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -155,7 +155,7 @@
            //Code for Pie Chart
             var pieData        = {
             labels: [
-                'Leave', 
+                'Congé', 
                 'Attendance', 
             ],
             datasets: [

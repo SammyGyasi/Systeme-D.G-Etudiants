@@ -1,7 +1,7 @@
 {% extends 'hod_template/base_template.html' %}
 
 {% block page_title %}
-    View Attendance
+    Voir La Liste D'absence
 {% endblock page_title %}
 
 {% block main_content %}
@@ -16,7 +16,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">View Attendance</h3>
+                        <h3 class="card-title">Voir L'absence</h3>
                     </div>
                     <!-- /.card-header -->
 
@@ -49,7 +49,7 @@
                         <div class="card-body">
                            
                             <div class="form-group">
-                                <label>Subject </label>
+                                <label>Matiere </label>
                                 <select class="form-control" name="subject" id="subject">
                                     {% for subject in subjects %}
                                         <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Session Year </label>
+                                <label>Semestre </label>
                                 <select class="form-control" name="session_year_id" id="session_year_id">
                                     {% for session_year in session_years %}
                                         <option value="{{ session_year.id }}">{{ session_year.session_start_year }} to {{ session_year.session_end_year }}</option>
@@ -71,12 +71,12 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-primary" id="fetch_attendance">Fetch Attendance Date</button>
+                            <button type="button" class="btn btn-primary" id="fetch_attendance">Récupérer la date de présence</button>
                         </div>
 
                         <div class="card-footer">
                             <div class="form-group" id="attendance_block" style="display:none;">
-                                    <label>Attendance Date </label>
+                                    <label>Date d'assiduité </label>
                                     <select class="form-control" name="attendance_date" id="attendance_date">
                                         
                                     </select>
@@ -95,7 +95,7 @@
 
                             <div class="card-footer" id="fetch_student_block" style="display:none;">
 
-                                <button type="button" class="btn btn-primary" id="fetch_student">Fetch Student Data</button>
+                                <button type="button" class="btn btn-primary" id="fetch_student">Récupérer les données des étudiants</button>
                             </div>
                             
                             <!-- /.card-body -->

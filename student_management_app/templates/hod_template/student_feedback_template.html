@@ -1,7 +1,7 @@
 {% extends 'hod_template/base_template.html' %}
 
 {% block page_title %}
-    Student Feedback
+    Retour Des Etudiants
 {% endblock page_title %}
 
 {% block main_content %}
@@ -16,7 +16,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Student Feedback</h3>
+                            <h3 class="card-title"> Retour Des Etudiants</h3>
                         </div>
                         <!-- /.card-header -->
 
@@ -25,12 +25,12 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Student ID</th>
-                                    <th>Student Name</th>
-                                    <th>Student Session</th>
+                                    <th>ID Etudiant</th>
+                                    <th>Nom</th>
+                                    <th>Semestre</th>
                                     <th>Message</th>
-                                    <th>Sended On</th>
-                                    <th>Reply</th>
+                                    <th>Envoyé le</th>
+                                    <th>Réponse</th>
                                 </tr>
                                 </thead>
 
@@ -45,7 +45,7 @@
                                     <td>{{ feedback.created_at }}</td>
                                     <td>
                                         {% if feedback.feedback_reply == "" %}
-                                            <button class="btn btn-success reply_open_modal" data-toggle="modal" data-target="#replyModal">Reply</button>
+                                            <button class="btn btn-success reply_open_modal" data-toggle="modal" data-target="#replyModal">Répondre</button>
                                         {% else %}
                                             {{ feedback.feedback_reply }}
                                         {% endif %}
@@ -79,13 +79,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Reply to: <b><span id="reply_name"></span></b></p>
+                <p>Répondre à: <b><span id="reply_name"></span></b></p>
                 <input type="hidden" id="reply_id" name="reply_id" />
                 <textarea class="form-control" rows="5" id="reply_message"></textarea>
             </div>
             <div class="modal-footer">
                 {% comment %} <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> {% endcomment %}
-                <button type="button" class="btn btn-primary btn-block" id="reply_button">Reply</button>
+                <button type="button" class="btn btn-primary btn-block" id="reply_button">Répondre</button>
             </div>
             </div>
         </div>

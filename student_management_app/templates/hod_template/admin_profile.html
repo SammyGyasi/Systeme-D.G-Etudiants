@@ -1,7 +1,7 @@
 {% extends 'hod_template/base_template.html' %}
 
 {% block page_title %}
-    Update Profile
+    Modifier Profil De L'admin
 {% endblock page_title %}
 
 {% block main_content %}
@@ -16,7 +16,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Update Profile</h3>
+                        <h3 class="card-title">Modifier Profil(Admin)</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -52,7 +52,7 @@
 
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Username </label>
+                                <label>Nom d'utilisateur </label>
                                 <input type="text" class="form-control" name="username" value="{{ user.username }}" disabled="disabled">
                             </div>
 
@@ -62,17 +62,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label>First Name </label>
+                                <label>Prenom </label>
                                 <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}">
                             </div>
 
                             <div class="form-group">
-                                <label>Last Name </label>
+                                <label>Nom </label>
                                 <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}">
                             </div>
 
                             <div class="form-group">
-                                <label>Password </label>
+                                <label>Mot de passe </label>
                                 <input type="text" class="form-control" name="password" placeholder="Fill only if you want to change Password.">
                             </div>
 
@@ -80,7 +80,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                        <button type="submit" class="btn btn-primary">Modifier Profil</button>
                         </div>
                     </form>
                     </div>
