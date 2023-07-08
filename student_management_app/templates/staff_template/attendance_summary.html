@@ -1,0 +1,45 @@
+{% extends 'staff_template/base_template.html' %}
+
+{% block page_title %}
+    Sommaire Assituite
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+  <div class="container">
+    <h1>Attendance Summary</h1>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Presents</th>
+          <th>Absents</th>
+          <th>Total Mark</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.presents }}</td>
+            <td>{{ student.absents }}</td>
+            <td>
+              {% if student.absents < 5 %}
+                18
+              {% elif student.absents >= 7 and student.absents <= 12 %}
+                10
+              {% elif student.absents > 15 %}
+                8
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

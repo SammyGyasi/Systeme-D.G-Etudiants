@@ -53,11 +53,24 @@
               <a href="{{ staff_update_attendance }}" class="nav-link {% if request.path == staff_update_attendance %} active {% endif %}">
                 <i class="nav-icon fas fa-calendar-alt"></i>
                 <p>
-                  Voir / Mettre à jour les présences
+                  Voir / Modifier les présences
                   {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
                 </p>
               </a>
             </li>
+
+            <li class="nav-item">
+              {% url 'attendance_summary' as count_attendance %}
+              <a href="{{ count_attendance }}" class="nav-link {% if request.path == count_attendance %} active {% endif %}">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>
+                  Assiduité semestriale
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+            
+            
 
             <li class="nav-item">
               {% url 'staff_add_result' as staff_add_result %}

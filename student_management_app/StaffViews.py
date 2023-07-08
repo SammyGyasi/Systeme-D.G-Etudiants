@@ -79,6 +79,61 @@ def staff_take_attendance(request):
     return render(request, "staff_template/take_attendance_template.html", context)
 
 
+from django.shortcuts import render
+from student_management_app.models import Students, Attendance
+
+
+from django.shortcuts import render
+from .models import Students, AttendanceReport
+
+def attendance_summary(request):
+    students = Students.objects.all()
+    summary = []
+    for student in students:
+        presents = AttendanceReport.objects.filter(student_id=student).filter(status=True).count()
+        absents = AttendanceReport.objects.filter(student_id=student).filter(status=False).count()
+        summary.append({
+            'id': student.id,
+            'name': student.admin.first_name + ' ' + student.admin.last_name,
+            'presents': presents,
+            'absents': absents
+        })
+    context = {'students': summary}
+    return render(request, 'staff_template/attendance_summary.html', context)
+
+
+
+# #Count Attendance Session
+# import json
+# from django.http import HttpResponse
+# from django.shortcuts import render
+# from .models import Students, Attendance
+
+# def fetch_semester_data(request):
+#     # Retrieve and calculate the semester data (number of presents and absences)
+
+#     semester_data = []
+
+#     students = Students.objects.all()
+#     for student in students:
+#         presents = Attendance.objects.filter(student=student, status=True).count()
+#         absences = Attendance.objects.filter(student=student, status=False).count()
+
+#         student_data = {
+#             "id": student.id,
+#             "name": student.name,
+#             "presents": presents,
+#             "absences": absences
+#         }
+
+#         semester_data.append(student_data)
+
+#     response_data = json.dumps(semester_data)
+
+#     # Render the template with the data and return it as the response
+#     return render(request, 'fetch_semester_data.html', {'response_data': response_data})
+
+
 def staff_apply_leave(request):
     staff_obj = Staffs.objects.get(admin=request.user.id)
     leave_data = LeaveReportStaff.objects.filter(staff_id=staff_obj)

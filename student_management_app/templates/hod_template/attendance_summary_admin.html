@@ -1,0 +1,72 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    Résumé D'Assiduité (global)
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+           
+        </div>
+        <div class="col-6 text-right my-2">
+            <button class="btn btn-primary" id="printButton">Imprimer</button>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="attendanceTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom D'etudiant</th>
+                <th>Filière</th>
+                <th>Nb. Présents</th>
+                <th>Nb. Absents</th>
+                <th>Assiduité Totale</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.course }}</td>
+                    <td>{{ student.presents }}</td>
+                    <td>{{ student.absents }}</td>
+                    <td>
+                        {% if student.absents < 5 %}
+                            18
+                        {% elif student.absents >= 7 and student.absents <= 12 %}
+                            10
+                        {% elif student.absents > 15 %}
+                            8
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const printButton = document.getElementById('printButton');
+    const attendanceTable = document.getElementById('attendanceTable');
+
+    printButton.addEventListener('click', () => {
+        const originalDisplayStyle = attendanceTable.style.display;
+        attendanceTable.style.display = 'table'; // Show the table
+
+        window.print();
+
+        attendanceTable.style.display = originalDisplayStyle; // Restore the original display style
+    });
+</script>
+
+{% endblock %}
+
+
+

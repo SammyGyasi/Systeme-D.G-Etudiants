@@ -154,6 +154,21 @@
             </li>
 
             <li class="nav-item">
+              {% url 'attendance_summary' as count_attendance %}
+              <a href="{{ count_attendance }}" class="nav-link {% if request.path == count_attendance %} active {% endif %}">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>
+                  Assiduité semestriale(Globale)
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+           
+            
+
+
+            <li class="nav-item">
               {% url 'student_feedback_message' as student_feedback_message %}
               <a href="{{ student_feedback_message }}" class="nav-link {% if request.path == student_feedback_message %} active {% endif %}">
                 <i class="nav-icon fas fa-th"></i>

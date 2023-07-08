@@ -10,6 +10,12 @@ import json
 from student_management_app.models import CustomUser, Staffs, Courses, Subjects, Students, SessionYearModel, FeedBackStudent, FeedBackStaffs, LeaveReportStudent, LeaveReportStaff, Attendance, AttendanceReport
 from .forms import AddStudentForm, EditStudentForm
 
+from django.http import FileResponse
+
+
+
+
+
 
 def admin_home(request):
     all_student_count = Students.objects.all().count()
@@ -818,6 +824,28 @@ def admin_get_attendance_student(request):
         list_data.append(data_small)
 
     return JsonResponse(json.dumps(list_data), content_type="application/json", safe=False)
+
+from django.shortcuts import render
+from .models import Students, AttendanceReport, Courses
+from django.shortcuts import render
+from .models import Students, AttendanceReport, Courses
+
+def attendance_summary(request):
+    students = Students.objects.all()
+    summary = []
+    for student in students:
+        presents = AttendanceReport.objects.filter(student_id=student).filter(status=True).count()
+        absents = AttendanceReport.objects.filter(student_id=student).filter(status=False).count()
+        course_name = student.course_id.course_name  # Accessing the course name through the related field
+        summary.append({
+            'id': student.id,
+            'name': student.admin.first_name + ' ' + student.admin.last_name,
+            'presents': presents,
+            'absents': absents,
+            'course': course_name
+        })
+    context = {'students': summary}
+    return render(request, 'hod_template/attendance_summary_admin.html', context)
 
 
 def admin_profile(request):
