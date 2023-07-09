@@ -848,6 +848,40 @@ def attendance_summary(request):
     return render(request, 'hod_template/attendance_summary_admin.html', context)
 
 
+from django.shortcuts import render, get_object_or_404
+from .models import Students, StudentResult
+
+# from django.shortcuts import render, get_object_or_404
+# from .models import Students, StudentResult
+
+# def search_results(request):
+#     if request.method == 'POST':
+#         student_id = request.POST['student_id']
+#         student = get_object_or_404(Students, id=student_id)
+#         results = StudentResult.objects.filter(student_id=student)
+#         return render(request, 'hod_template/results.html', {'student': student, 'results': results})
+#     return render(request, 'hod_template/search.html')
+
+def search_results(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        try:
+            student = Students.objects.get(admin__id=student_id)
+            results = StudentResult.objects.filter(student_id=student)
+            for result in results:
+                average = (result.subject_exam_marks + result.subject_assignment_marks) / 2
+                result.average_marks = round(average, 2)
+            context = {
+                'student': student,
+                'results': results,
+            }
+            return render(request, 'hod_template/results.html', context)
+        except Students.DoesNotExist:
+            messages.error(request, 'Etudiant introuvable.')
+            return redirect('search')
+    else:
+        return render(request, 'hod_template/results.html')
+
 def admin_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
 
@@ -885,7 +919,7 @@ def staff_profile(request):
     pass
 
 
-def student_profile(requtest):
+def student_profile(request):
     pass
 
 

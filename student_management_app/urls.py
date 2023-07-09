@@ -59,6 +59,7 @@ urlpatterns = [
     path('admin_profile/', HodViews.admin_profile, name="admin_profile"),
     path('admin_profile_update/', HodViews.admin_profile_update, name="admin_profile_update"),
     path('attendance-summary/', HodViews.attendance_summary, name='attendance_summary'),
+    path('search/', HodViews.search_results, name='search_results'),
     
 
 

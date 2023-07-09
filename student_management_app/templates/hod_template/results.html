@@ -1,0 +1,74 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    Relève Des Notes
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<div class="container">
+    <form method="post" action="{% url 'search_results' %}" class="mt-2">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="form-group text-center">
+                    <label for="student_id">ID Etudiant:</label>
+                    <input type="text" id="student_id" name="student_id" class="form-control mb-2">
+                    <button type="submit" class="btn btn-warning">Rechercher</button>
+                </div>
+            </div>
+           
+        </div>
+    </form>
+</div>
+
+<div class="container bordered">
+    {% if results %}
+    <h4 class="mt-4 text-center"><u><strong>Bulletin de notes</strong></u></h4>
+
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <p><strong>Nom D'etudiant:</strong> {{ student.admin.get_full_name  }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Filière:</strong> {{ student.course_id.course_name }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>ID Etudiant:</strong> {{ student.admin.id }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Semestre:</strong> {{ student.session_year_id.session_start_year }} - {{ student.session_year_id.session_end_year }}</p>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Matière</th>
+                    <th>Controle Continu</th>
+                    <th>Controle Partiel</th>
+                    <th>Moyenne</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.subject_id.subject_name }}</td>
+                        <td>{{ result.subject_exam_marks }}</td>
+                        <td>{{ result.subject_assignment_marks }}</td>
+                        <td>{{ result.average_marks }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="text-center">
+            <p>Aucun résultat trouvé.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

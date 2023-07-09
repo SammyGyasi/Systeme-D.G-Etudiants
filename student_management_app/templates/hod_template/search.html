@@ -1,0 +1,29 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    Rechercher Résultats
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="mt-4 text-center">Rechercher Résultats</h1>
+            <form method="post" action="{% url 'search_results' %}" class="mt-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="student_id">Identifiant de l'étudiant:</label>
+                    <input type="text" id="student_id" name="student_id" class="form-control">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

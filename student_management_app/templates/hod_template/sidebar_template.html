@@ -69,6 +69,14 @@
             </li>
 
             <li class="nav-item">
+              <a href="{% url 'search_results' %}" class="nav-link">
+                  <i class="nav-icon fas fa-search"></i>
+                  <p>Search Student Results</p>
+              </a>
+          </li>
+          
+
+            <li class="nav-item">
               {% url 'add_student' as add_student %}
               <a href="{{ add_student }}" class="nav-link {% if request.path == add_student %} active {% endif %}">
                 <i class="nav-icon fas fa-th"></i>
@@ -164,10 +172,12 @@
               </a>
             </li>
 
-           
+          
             
 
+            
 
+           
             <li class="nav-item">
               {% url 'student_feedback_message' as student_feedback_message %}
               <a href="{{ student_feedback_message }}" class="nav-link {% if request.path == student_feedback_message %} active {% endif %}">
