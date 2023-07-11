@@ -10,63 +10,98 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-6">
-           
+        <div class="col-12">
+            <!-- Add buttons for each course -->
+            <div class="btn-group" role="group" aria-label="Course Buttons">
+                {% for course in courses %}
+                    <button class="btn btn-primary course-button" data-course="{{ course.id }}">{{ course.course_name }}</button>
+                {% endfor %}
+            </div>
         </div>
         <div class="col-6 text-right my-2">
             <button class="btn btn-primary" id="printButton">Imprimer</button>
         </div>
     </div>
 
-    <table class="table table-striped" id="attendanceTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom D'etudiant</th>
-                <th>Filière</th>
-                <th>Nb. Présents</th>
-                <th>Nb. Absents</th>
-                <th>Assiduité Totale</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for student in students %}
-                <tr>
-                    <td>{{ student.id }}</td>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.course }}</td>
-                    <td>{{ student.presents }}</td>
-                    <td>{{ student.absents }}</td>
-                    <td>
-                        {% if student.absents < 5 %}
-                            18
-                        {% elif student.absents >= 7 and student.absents <= 12 %}
-                            10
-                        {% elif student.absents > 15 %}
-                            8
+    <!-- Add placeholders for each course's list -->
+    {% for course in courses %}
+        <div id="courseList_{{ course.id }}" class="course-list" style="display: none;">
+            <table class="table table-striped">
+                <caption>{{ course.course_name }}</caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom D'etudiant</th>
+                        <th>Nb. Présents</th>
+                        <th>Nb. Absents</th>
+                        <th>Assiduité Totale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students_list %}
+                        {% if student.course == course.course_name %}
+                            <tr>
+                                <td>{{ student.id }}</td>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.presents }}</td>
+                                <td>{{ student.absents }}</td>
+                                <td>
+                                    {% if student.absents < 5 %}
+                                        18
+                                    {% elif student.absents >= 7 and student.absents <= 12 %}
+                                        10
+                                    {% elif student.absents > 15 %}
+                                        8
+                                    {% endif %}
+                                </td>
+                            </tr>
                         {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
 </div>
 
+<script src="{% static 'dist/js/html2pdf.bundle.min.js' %}"></script>
 <script>
     const printButton = document.getElementById('printButton');
-    const attendanceTable = document.getElementById('attendanceTable');
+    const courseButtons = document.querySelectorAll('.course-button');
+    const courseLists = document.querySelectorAll('.course-list');
+
+    // Hide all course lists initially
+    courseLists.forEach((list) => {
+        list.style.display = 'none';
+    });
+
+    // Add click event listener to each course button
+    courseButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const courseId = button.dataset.course;
+            const targetList = document.getElementById(`courseList_${courseId}`);
+
+            // Hide all course lists except the target list
+            courseLists.forEach((list) => {
+                if (list === targetList) {
+                    list.style.display = 'block';
+                } else {
+                    list.style.display = 'none';
+                }
+            });
+        });
+    });
 
     printButton.addEventListener('click', () => {
-        const originalDisplayStyle = attendanceTable.style.display;
-        attendanceTable.style.display = 'table'; // Show the table
+        const opt = {
+            margin: 1,
+            filename: 'resume_assiduite.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
 
-        window.print();
-
-        attendanceTable.style.display = originalDisplayStyle; // Restore the original display style
+        html2pdf().set(opt).from(document.body).save();
     });
 </script>
 
 {% endblock %}
-
-
-

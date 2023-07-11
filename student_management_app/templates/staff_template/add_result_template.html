@@ -115,7 +115,7 @@
                 var json_data=JSON.parse(response);
                 console.log(json_data)
                 //Displaying Attendance Date Input and Students Attendance
-                var div_data="<div class='form-group'><label>Student List</label> <select class='student_list form-control' name='student_list'>"
+                var div_data="<div class='form-group'><label>Liste d'etudiant</label> <select class='student_list form-control' name='student_list'>"
 
                 for(key in json_data)
                 {
@@ -127,17 +127,17 @@
                 div_data+="<div class='form-group'><div class='row'>";
 
                 div_data+="<div class='col-lg-6'>";
-                div_data+="<label>Assignment Marks : </label><input type='text'name='assignment_marks' class='form-control' placeholder='Assignment Marks' />";
+                div_data+="<label>Controle Continu : </label><input type='text'name='assignment_marks' class='form-control' placeholder='Controle Continu' />";
                 div_data+="</div>";
 
                 div_data+="<div class='col-lg-6'>";
-                div_data+="<label>Exam Marks : </label><input type='text'name='exam_marks' class='form-control' placeholder='Exam Marks' />";
+                div_data+="<label>Controle Partiel : </label><input type='text'name='exam_marks' class='form-control' placeholder='Controle Partiel' />";
                 div_data+="</div>";
 
                 div_data+="</div></div>";
 
                 div_data+="<div class='form-group'>";
-                div_data+="<button id='save_attendance' class='btn btn-success' type='submit'>Save Result</button>";
+                div_data+="<button id='save_attendance' class='btn btn-success' type='submit'>Enregistrer</button>";
                 div_data+="</div>";
                 $("#student_data").html(div_data);
 

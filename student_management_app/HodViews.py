@@ -830,22 +830,34 @@ from .models import Students, AttendanceReport, Courses
 from django.shortcuts import render
 from .models import Students, AttendanceReport, Courses
 
+
 def attendance_summary(request):
-    students = Students.objects.all()
+    courses = Courses.objects.all()
     summary = []
-    for student in students:
-        presents = AttendanceReport.objects.filter(student_id=student).filter(status=True).count()
-        absents = AttendanceReport.objects.filter(student_id=student).filter(status=False).count()
-        course_name = student.course_id.course_name  # Accessing the course name through the related field
-        summary.append({
-            'id': student.id,
-            'name': student.admin.first_name + ' ' + student.admin.last_name,
-            'presents': presents,
-            'absents': absents,
-            'course': course_name
-        })
-    context = {'students': summary}
+
+    for course in courses:
+        students = Students.objects.filter(course_id=course)
+        for student in students:
+            presents = AttendanceReport.objects.filter(student_id=student, status=True).count()
+            absents = AttendanceReport.objects.filter(student_id=student, status=False).count()
+
+            summary.append({
+                'id': student.id,
+                'name': student.admin.get_full_name(),
+                'presents': presents,
+                'absents': absents,
+                'course': course.course_name
+            })
+
+    context = {
+        'students_list': summary,
+        'courses': courses,
+    }
+
     return render(request, 'hod_template/attendance_summary_admin.html', context)
+
+
+
 
 
 from django.shortcuts import render, get_object_or_404
@@ -861,6 +873,11 @@ from .models import Students, StudentResult
 #         results = StudentResult.objects.filter(student_id=student)
 #         return render(request, 'hod_template/results.html', {'student': student, 'results': results})
 #     return render(request, 'hod_template/search.html')
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+
+
+from django.shortcuts import render
 
 def search_results(request):
     if request.method == 'POST':
@@ -868,19 +885,27 @@ def search_results(request):
         try:
             student = Students.objects.get(admin__id=student_id)
             results = StudentResult.objects.filter(student_id=student)
+            
+            # Calculate average marks for each result
             for result in results:
                 average = (result.subject_exam_marks + result.subject_assignment_marks) / 2
                 result.average_marks = round(average, 2)
+
+            # Calculate the total average
+            total_average = sum(result.average_marks for result in results) / len(results) if results else 0
+
             context = {
                 'student': student,
                 'results': results,
+                'total_average': total_average,
             }
             return render(request, 'hod_template/results.html', context)
         except Students.DoesNotExist:
             messages.error(request, 'Etudiant introuvable.')
-            return redirect('search')
+            return redirect('search_results')
     else:
         return render(request, 'hod_template/results.html')
+
 
 def admin_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
