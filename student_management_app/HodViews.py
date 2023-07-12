@@ -894,10 +894,21 @@ def search_results(request):
             # Calculate the total average
             total_average = sum(result.average_marks for result in results) / len(results) if results else 0
 
+            # Calculate the attendance score
+            presents = AttendanceReport.objects.filter(student_id=student, status=True).count()
+            absents = AttendanceReport.objects.filter(student_id=student, status=False).count()
+            if absents >= 10:
+                attendance_score = 10
+            elif absents >= 5:
+                attendance_score = 15
+            else:
+                attendance_score = 18
+
             context = {
                 'student': student,
                 'results': results,
                 'total_average': total_average,
+                'attendance_score': attendance_score,
             }
             return render(request, 'hod_template/results.html', context)
         except Students.DoesNotExist:

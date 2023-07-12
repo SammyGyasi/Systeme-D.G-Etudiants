@@ -68,13 +68,7 @@
               </a>
             </li>
 
-            <li class="nav-item">
-              <a href="{% url 'search_results' %}" class="nav-link">
-                  <i class="nav-icon fas fa-search"></i>
-                  <p>Search Student Results</p>
-              </a>
-          </li>
-          
+         
 
             <li class="nav-item">
               {% url 'add_student' as add_student %}
@@ -85,6 +79,14 @@
                 </p>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a href="{% url 'search_results' %}" class="nav-link">
+                  <i class="nav-icon fas fa-search"></i>
+                  <p>Releves de notes</p>
+              </a>
+          </li>
+          
 
             <li class="nav-item">
               {% url 'manage_course' as manage_course %}
@@ -135,7 +137,7 @@
               <a href="{{ manage_session }}" class="nav-link {% if request.path == manage_session %} active {% endif %} {% if request.path == edit_session %} active {% endif %}">
                 <i class="nav-icon fas fa-graduation-cap"></i>
                 <p>
-                  Gérer Session 
+                  Gérer Semestre
                 </p>
               </a>
             </li>
@@ -145,7 +147,7 @@
               <a href="{{ add_session }}" class="nav-link {% if request.path == add_session %} active {% endif %}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Ajouter Session
+                  Ajouter Semestre
                 </p>
               </a>
             </li>
